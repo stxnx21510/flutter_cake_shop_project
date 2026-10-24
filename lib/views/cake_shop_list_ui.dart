@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cake_shop_project/models/cake_shop.dart';
+import 'package:flutter_cake_shop_project/views/cake_shop_detail_ui.dart';
 
 class CakeShopListUI extends StatefulWidget {
   const CakeShopListUI({super.key});
@@ -22,7 +23,7 @@ class _CakeShopListUIState extends State<CakeShopListUI> {
   ];
 
   // เก็บข้อมูลรายละเอียดร้าน
-  List cakedata = [
+  List cakeShopData = [
     //ข้อมูลร้านเค้ก  ----------------------------------------
     CakeShop(
       name: 'Yellow Spoon Pastry',
@@ -174,17 +175,28 @@ class _CakeShopListUIState extends State<CakeShopListUI> {
             //ส่วนของ ฃื่อร้าน โดยใฃ้ listview ฃื่อ cakedata
             Expanded(
               child: ListView.separated(
-                itemCount: cakedata.length,
+                itemCount: cakeShopData.length,
                 separatorBuilder: (context, index) => Divider(
                   color: const Color.fromARGB(255, 255, 116, 116),
                 ),
                 itemBuilder: (context, index) {
                   return ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      //open cake shop detail and undo with info
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CakeShopDetailUI(
+                            //semd info
+                            cakeShop: cakeShopData[index],
+                          ),
+                        )
+                      );
+                    },
                     leading: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Image.asset(
-                        cakedata[index].image1,
+                        cakeShopData[index].image1,
                       ),
                     ),
                     trailing: Icon(
@@ -192,10 +204,10 @@ class _CakeShopListUIState extends State<CakeShopListUI> {
                       color: Colors.red,
                     ),
                     title: Text(
-                      cakedata[index].name,
+                      cakeShopData[index].name,
                     ),
                     subtitle: Text(
-                      cakedata[index].phone,
+                      cakeShopData[index].phone,
                     ),
                   );
                 },
